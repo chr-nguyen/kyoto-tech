@@ -3,6 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import WhyJoin from "../components/WhyJoin.astro";
 import WhatWeDo from "../components/WhatWeDo.astro";
 import Calendar from "../components/Calendar.astro";
+import Footer from "../components/Footer.astro";
 import { FaGithub, FaDiscord, FaMeetup, FaEnvelope } from "react-icons/fa";
 import { FaRegClock, FaRegCalendarAlt } from "react-icons/fa";
 import { useTranslations } from "../i18n/utils";
@@ -13,491 +14,521 @@ import compositeFeed from "../data/composite-feed.json";
 const { lang = "en" } = Astro.props;
 const t = useTranslations(lang);
 
-const meetupUrl = lang === "ja"
-	? "https://www.meetup.com/ja-JP/kyoto-tech-meetup/"
-	: "https://www.meetup.com/kyoto-tech-meetup/";
+const meetupUrl =
+  lang === "ja"
+    ? "https://www.meetup.com/ja-JP/kyoto-tech-meetup/"
+    : "https://www.meetup.com/kyoto-tech-meetup/";
 const discordUrl = "https://discord.gg/mXFWEHDKeu";
 const githubUrl = "https://github.com/kyoto-tech";
 const contactUrl = "https://forms.gle/NPtc1G1vM9jGBYhp6";
 
 const quickLinks = [
-	{
-		href: meetupUrl,
-		icon: FaMeetup,
-		titleKey: "home.quickLinks.meetup.title",
-		descriptionKey: "home.quickLinks.meetup.description"
-	},
-	{
-		href: discordUrl,
-		icon: FaDiscord,
-		titleKey: "home.quickLinks.discord.title",
-		descriptionKey: "home.quickLinks.discord.description"
-	},
-	{
-		href: githubUrl,
-		icon: FaGithub,
-		titleKey: "home.quickLinks.github.title",
-		descriptionKey: "home.quickLinks.github.description"
-	},
-	{
-		href: contactUrl,
-		icon: FaEnvelope,
-		titleKey: "home.quickLinks.contact.title",
-		descriptionKey: "home.quickLinks.contact.description"
-	}
+  {
+    href: meetupUrl,
+    icon: FaMeetup,
+    titleKey: "home.quickLinks.meetup.title",
+    descriptionKey: "home.quickLinks.meetup.description",
+  },
+  {
+    href: discordUrl,
+    icon: FaDiscord,
+    titleKey: "home.quickLinks.discord.title",
+    descriptionKey: "home.quickLinks.discord.description",
+  },
+  {
+    href: githubUrl,
+    icon: FaGithub,
+    titleKey: "home.quickLinks.github.title",
+    descriptionKey: "home.quickLinks.github.description",
+  },
+  {
+    href: contactUrl,
+    icon: FaEnvelope,
+    titleKey: "home.quickLinks.contact.title",
+    descriptionKey: "home.quickLinks.contact.description",
+  },
 ] as const;
 
 type ActivityContent =
-	| {
-			type: "paragraph";
-			text: string;
-	  }
-	| {
-			type: "list";
-			intro?: string;
-			items: string[];
-	  };
+  | {
+      type: "paragraph";
+      text: string;
+    }
+  | {
+      type: "list";
+      intro?: string;
+      items: string[];
+    };
 
 type Activity = {
-	title: string;
-	content: ActivityContent[];
+  title: string;
+  content: ActivityContent[];
 };
 
 type MemberFeed = {
-	name: string;
-	siteUrl: string;
-	feedUrl: string;
+  name: string;
+  siteUrl: string;
+  feedUrl: string;
 };
 
 type CompositeItem = {
-	id: string;
-	title: string;
-	link: string;
-	publishedAt: string;
-	summary?: string;
-	image?: string | null;
-	source: MemberFeed;
+  id: string;
+  title: string;
+  link: string;
+  publishedAt: string;
+  summary?: string;
+  image?: string | null;
+  source: MemberFeed;
 };
 
 type CompositeFeed = MemberFeed & {
-	items: CompositeItem[];
-	error?: string;
+  items: CompositeItem[];
+  error?: string;
 };
 
 const benefits = [
-	{
-		title: t("home.benefit1.title"),
-		description: t("home.benefit1.description")
-	},
-	{
-		title: t("home.benefit2.title"),
-		description: t("home.benefit2.description")
-	},
-	{
-		title: t("home.benefit3.title"),
-		description: t("home.benefit3.description")
-	}
+  {
+    title: t("home.benefit1.title"),
+    description: t("home.benefit1.description"),
+  },
+  {
+    title: t("home.benefit2.title"),
+    description: t("home.benefit2.description"),
+  },
+  {
+    title: t("home.benefit3.title"),
+    description: t("home.benefit3.description"),
+  },
 ];
 
 const activities: Activity[] = [
-	{
-		title: t("home.activity1.title"),
-		content: [
-			{
-				type: "paragraph",
-				text: t("home.activity1.content1")
-			},
-			{
-				type: "paragraph",
-				text: t("home.activity1.content2")
-			},
-			{
-				type: "paragraph",
-				text: t("home.activity1.content3")
-			}
-		]
-	},
-	{
-		title: t("home.activity2.title"),
-		content: [
-			{
-				type: "paragraph",
-				text: t("home.activity2.content1")
-			},
-			{
-				type: "paragraph",
-				text: t("home.activity2.content2")
-			},
-			{
-				type: "paragraph",
-				text: t("home.activity2.content3")
-			}
-		]
-	}
+  {
+    title: t("home.activity1.title"),
+    content: [
+      {
+        type: "paragraph",
+        text: t("home.activity1.content1"),
+      },
+      {
+        type: "paragraph",
+        text: t("home.activity1.content2"),
+      },
+      {
+        type: "paragraph",
+        text: t("home.activity1.content3"),
+      },
+    ],
+  },
+  {
+    title: t("home.activity2.title"),
+    content: [
+      {
+        type: "paragraph",
+        text: t("home.activity2.content1"),
+      },
+      {
+        type: "paragraph",
+        text: t("home.activity2.content2"),
+      },
+      {
+        type: "paragraph",
+        text: t("home.activity2.content3"),
+      },
+    ],
+  },
 ];
 
 const locale = lang === "ja" ? "ja-JP" : "en-US";
 
 const memberFeedList = (memberFeeds as MemberFeed[]) ?? [];
 const compositeFeedEntries = Array.isArray(compositeFeed?.feeds)
-	? (compositeFeed.feeds as CompositeFeed[])
-	: [];
+  ? (compositeFeed.feeds as CompositeFeed[])
+  : [];
 const feedsWithItems = memberFeedList.map((feed) => {
-	const match =
-		compositeFeedEntries.find(
-			(entry) =>
-				entry.feedUrl === feed.feedUrl ||
-				entry.siteUrl === feed.siteUrl ||
-				entry.name === feed.name
-		) ?? null;
-	return {
-		...feed,
-		items: match?.items ?? [],
-		error: match?.error
-	};
+  const match =
+    compositeFeedEntries.find(
+      (entry) =>
+        entry.feedUrl === feed.feedUrl ||
+        entry.siteUrl === feed.siteUrl ||
+        entry.name === feed.name,
+    ) ?? null;
+  return {
+    ...feed,
+    items: match?.items ?? [],
+    error: match?.error,
+  };
 });
 
 const formatDate = (value: string) => {
-	const date = new Date(value);
-	if (Number.isNaN(date.valueOf())) return null;
-	return date.toLocaleDateString(locale, {
-		timeZone: "Asia/Tokyo",
-		month: "short",
-		day: "numeric",
-		year: "numeric"
-	});
+  const date = new Date(value);
+  if (Number.isNaN(date.valueOf())) return null;
+  return date.toLocaleDateString(locale, {
+    timeZone: "Asia/Tokyo",
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
 };
 
 const formatTime = (value: string | Date) => {
-	const date = value instanceof Date ? value : new Date(value);
-	if (Number.isNaN(date.valueOf())) return null;
-	return date.toLocaleTimeString(locale, {
-		timeZone: "Asia/Tokyo",
-		hour12: false,
-		hour: "2-digit",
-		minute: "2-digit"
-	});
+  const date = value instanceof Date ? value : new Date(value);
+  if (Number.isNaN(date.valueOf())) return null;
+  return date.toLocaleTimeString(locale, {
+    timeZone: "Asia/Tokyo",
+    hour12: false,
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 };
 
 const lastUpdated =
-	compositeFeed?.generatedAt && formatTime(compositeFeed.generatedAt);
+  compositeFeed?.generatedAt && formatTime(compositeFeed.generatedAt);
 const updateIntervalHours = 3;
-const nextUpdate =
-	compositeFeed?.generatedAt
-		? (() => {
-				const dt = new Date(compositeFeed.generatedAt);
-				if (Number.isNaN(dt.valueOf())) return null;
-				dt.setHours(dt.getHours() + updateIntervalHours);
-				return formatTime(dt);
-		  })()
-		: null;
+const nextUpdate = compositeFeed?.generatedAt
+  ? (() => {
+      const dt = new Date(compositeFeed.generatedAt);
+      if (Number.isNaN(dt.valueOf())) return null;
+      dt.setHours(dt.getHours() + updateIntervalHours);
+      return formatTime(dt);
+    })()
+  : null;
 ---
 
 <Layout>
-	<header class="relative isolate flex min-h-[70vh] items-center px-6 py-20 text-white sm:py-28 md:px-16">
-		<div class="absolute inset-0 -z-10">
-			<img
-				src="https://images.unsplash.com/photo-1570463723985-41c39db0343d?q=80&w=1335&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D?auto=format&fit=crop&w=2000&q=80"
-				alt=""
-				loading="lazy"
-				fetchpriority="high"
-				decoding="async"
-				class="h-full w-full object-cover"
-			/>
-			<div class="absolute inset-0 bg-black/40"></div>
-		</div>
-		<div class="mx-auto max-w-3xl text-center md:ml-[5%] md:text-left">
-			<p class="text-xs font-semibold uppercase tracking-[0.3em] text-white/80">{t("home.header.tagline")}</p>
-			<h1 class="mt-4 text-4xl font-semibold leading-tight text-white md:text-5xl">
-				{t("home.header.title")}
-			</h1>
-			<p class="mt-4 text-lg text-white/90">
-				{t("home.header.subtitle")}
-			</p>
-		</div>
-		<LanguagePicker />
-	</header>
+  <header
+    class="relative isolate flex min-h-[70vh] items-center px-6 py-20 text-white sm:py-28 md:px-16"
+  >
+    <div class="absolute inset-0 -z-10">
+      <img
+        src="https://images.unsplash.com/photo-1570463723985-41c39db0343d?q=80&w=1335&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D?auto=format&fit=crop&w=2000&q=80"
+        alt=""
+        loading="lazy"
+        fetchpriority="high"
+        decoding="async"
+        class="h-full w-full object-cover"
+      />
+      <div class="absolute inset-0 bg-black/40"></div>
+    </div>
+    <div class="mx-auto max-w-3xl text-center md:ml-[5%] md:text-left">
+      <p class="text-xs font-semibold uppercase tracking-[0.3em] text-white/80">
+        {t("home.header.tagline")}
+      </p>
+      <h1
+        class="mt-4 text-4xl font-semibold leading-tight text-white md:text-5xl"
+      >
+        {t("home.header.title")}
+      </h1>
+      <p class="mt-4 text-lg text-white/90">
+        {t("home.header.subtitle")}
+      </p>
+    </div>
+    <LanguagePicker />
+  </header>
 
-	<main id="main-content" class="space-y-0">
-		<section id="quick-links" class="bg-white/90 px-6 py-12 md:px-12">
-			<div class="mx-auto max-w-5xl">
-				<p class="text-sm font-semibold uppercase tracking-[0.3em] text-slate-500">
-					{t("home.quickLinks.label")}
-				</p>
-				<h2 class="mt-3 text-3xl font-semibold text-slate-900">
-					{t("home.quickLinks.title")}
-				</h2>
-				<p class="mt-3 max-w-2xl text-base text-slate-600">
-					{t("home.quickLinks.description")}
-				</p>
-				<div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-					{quickLinks.map((link) => (
-						<a
-							class="group flex h-full items-start gap-3 rounded-2xl border border-slate-200/80 bg-white/95 p-4 shadow-lg shadow-stone-900/5 transition hover:-translate-y-0.5 hover:border-(--accent) hover:bg-white"
-							href={link.href}
-							target="_blank"
-							rel="noreferrer"
-						>
-							<span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-(--accent)/10 text-(--accent)">
-								<link.icon size={18} aria-hidden="true" />
-							</span>
-							<span class="flex flex-col">
-								<span class="text-base font-semibold text-slate-900 group-hover:text-(--accent)">
-									{t(link.titleKey)}
-								</span>
-								<span class="mt-1 text-sm text-slate-600">
-									{t(link.descriptionKey)}
-								</span>
-							</span>
-						</a>
-					))}
-				</div>
-			</div>
-		</section>
+  <main id="main-content" class="space-y-0">
+    <section id="quick-links" class="bg-white/90 px-6 py-12 md:px-12">
+      <div class="mx-auto max-w-5xl">
+        <p
+          class="text-sm font-semibold uppercase tracking-[0.3em] text-slate-500"
+        >
+          {t("home.quickLinks.label")}
+        </p>
+        <h2 class="mt-3 text-3xl font-semibold text-slate-900">
+          {t("home.quickLinks.title")}
+        </h2>
+        <p class="mt-3 max-w-2xl text-base text-slate-600">
+          {t("home.quickLinks.description")}
+        </p>
+        <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {
+            quickLinks.map((link) => (
+              <a
+                class="group flex h-full items-start gap-3 rounded-2xl border border-slate-200/80 bg-white/95 p-4 shadow-lg shadow-stone-900/5 transition hover:-translate-y-0.5 hover:border-(--accent) hover:bg-white"
+                href={link.href}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-(--accent)/10 text-(--accent)">
+                  <link.icon size={18} aria-hidden="true" />
+                </span>
+                <span class="flex flex-col">
+                  <span class="text-base font-semibold text-slate-900 group-hover:text-(--accent)">
+                    {t(link.titleKey)}
+                  </span>
+                  <span class="mt-1 text-sm text-slate-600">
+                    {t(link.descriptionKey)}
+                  </span>
+                </span>
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </section>
 
-		<section id="whats-happening" class="bg-white/70 px-6 py-16 md:px-12">
-			<div class="mx-auto max-w-5xl">
-				<p class="text-sm font-semibold uppercase tracking-[0.3em] text-slate-500">{t("home.whatsHappening.label")}</p>
-				<h2 class="mt-3 text-3xl font-semibold text-slate-900">{t("home.whatsHappening.title")}</h2>
-				<WhatWeDo activities={activities} />
-			</div>
-		</section>
+    <section id="whats-happening" class="bg-white/70 px-6 py-16 md:px-12">
+      <div class="mx-auto max-w-5xl">
+        <p
+          class="text-sm font-semibold uppercase tracking-[0.3em] text-slate-500"
+        >
+          {t("home.whatsHappening.label")}
+        </p>
+        <h2 class="mt-3 text-3xl font-semibold text-slate-900">
+          {t("home.whatsHappening.title")}
+        </h2>
+        <WhatWeDo activities={activities} />
+      </div>
+    </section>
 
-		<section id="calendar" class="bg-white px-6 py-16 md:px-12">
-  			<div class="mx-auto max-w-5xl">
-   			<p class="text-sm font-semibold uppercase tracking-[0.3em] text-slate-500">
-      			Upcoming Meetups
-    			</p>
-    			<h2 class="mt-3 text-3xl font-semibold text-slate-900">
-      			Kyoto Tech Meetup Calendar
-    			</h2>
+    <section id="calendar" class="bg-white px-6 py-16 md:px-12">
+      <div class="mx-auto max-w-5xl">
+        <p
+          class="text-sm font-semibold uppercase tracking-[0.3em] text-slate-500"
+        >
+          Upcoming Meetups
+        </p>
+        <h2 class="mt-3 text-3xl font-semibold text-slate-900">
+          Kyoto Tech Meetup Calendar
+        </h2>
 
-    			<Calendar />
-  			</div>
-		</section>
+        <Calendar />
+      </div>
+    </section>
 
-		<section id="community-feed" class="bg-white px-6 py-16 md:px-12">
-			<div class="mx-auto max-w-5xl space-y-8">
-				<div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-					<div>
-						<p class="text-sm font-semibold uppercase tracking-[0.3em] text-slate-500">
-							{t("home.communityFeed.label")}
-						</p>
-						<h2 class="mt-3 text-3xl font-semibold text-slate-900">
-							{t("home.communityFeed.title")}
-						</h2>
-						<p class="mt-3 text-slate-600">
-							{t("home.communityFeed.description")}
-						</p>
-						{lastUpdated ? (
-							<div class="mt-2 flex flex-wrap items-center gap-3 text-sm text-slate-600">
-								<span class="inline-flex items-center gap-1">
-									<FaRegClock className="text-(--accent)" aria-hidden="true" />
-									<span>{t("home.communityFeed.updated")}: {lastUpdated}</span>
-								</span>
-								{nextUpdate ? (
-									<span class="inline-flex items-center gap-1">
-										<FaRegCalendarAlt className="text-(--accent)" aria-hidden="true" />
-										<span>{t("home.communityFeed.nextUpdate")}: {nextUpdate}</span>
-									</span>
-								) : null}
-							</div>
-						) : null}
-					</div>
-				</div>
+    <section id="community-feed" class="bg-white px-6 py-16 md:px-12">
+      <div class="mx-auto max-w-5xl space-y-8">
+        <div
+          class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between"
+        >
+          <div>
+            <p
+              class="text-sm font-semibold uppercase tracking-[0.3em] text-slate-500"
+            >
+              {t("home.communityFeed.label")}
+            </p>
+            <h2 class="mt-3 text-3xl font-semibold text-slate-900">
+              {t("home.communityFeed.title")}
+            </h2>
+            <p class="mt-3 text-slate-600">
+              {t("home.communityFeed.description")}
+            </p>
+            {
+              lastUpdated ? (
+                <div class="mt-2 flex flex-wrap items-center gap-3 text-sm text-slate-600">
+                  <span class="inline-flex items-center gap-1">
+                    <FaRegClock
+                      className="text-(--accent)"
+                      aria-hidden="true"
+                    />
+                    <span>
+                      {t("home.communityFeed.updated")}: {lastUpdated}
+                    </span>
+                  </span>
+                  {nextUpdate ? (
+                    <span class="inline-flex items-center gap-1">
+                      <FaRegCalendarAlt
+                        className="text-(--accent)"
+                        aria-hidden="true"
+                      />
+                      <span>
+                        {t("home.communityFeed.nextUpdate")}: {nextUpdate}
+                      </span>
+                    </span>
+                  ) : null}
+                </div>
+              ) : null
+            }
+          </div>
+        </div>
 
-				<div class="flex flex-col gap-5">
+        <div class="flex flex-col gap-5">
+          <div class="space-y-5">
+            {
+              feedsWithItems.map((feed) => (
+                <article
+                  class="flex h-full flex-col overflow-visible rounded-2xl border border-slate-200/70 bg-white/95 p-5 shadow-lg shadow-stone-900/5 ring-1 ring-white/80"
+                  key={feed.feedUrl}
+                >
+                  <div class="flex flex-wrap items-center gap-3">
+                    <h4 class="text-lg font-semibold text-slate-900">
+                      {feed.name}
+                    </h4>
+                    <div class="ml-auto flex items-center gap-2">
+                      {feed.error ? (
+                        <span class="rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-800">
+                          {t("home.communityFeed.fetchError")}
+                        </span>
+                      ) : null}
+                      {feed.siteUrl ? (
+                        <a
+                          class="inline-flex items-center rounded-full border border-(--accent) bg-(--accent)/10 px-3 py-1 text-xs font-semibold text-(--accent)"
+                          href={feed.siteUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {feed.siteUrl
+                            .replace(/^https?:\/\//, "")
+                            .replace(/\/$/, "")}
+                        </a>
+                      ) : null}
+                    </div>
+                  </div>
 
-					<div class="space-y-5">
-						{feedsWithItems.map((feed) => (
-								<article
-									class="flex h-full flex-col overflow-visible rounded-2xl border border-slate-200/70 bg-white/95 p-5 shadow-lg shadow-stone-900/5 ring-1 ring-white/80"
-									key={feed.feedUrl}
-								>
-									<div class="flex flex-wrap items-center gap-3">
-										<h4 class="text-lg font-semibold text-slate-900">
-											{feed.name}
-										</h4>
-										<div class="ml-auto flex items-center gap-2">
-											{feed.error ? (
-												<span class="rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-800">
-													{t("home.communityFeed.fetchError")}
-												</span>
-											) : null}
-											{feed.siteUrl ? (
-												<a
-													class="inline-flex items-center rounded-full border border-(--accent) bg-(--accent)/10 px-3 py-1 text-xs font-semibold text-(--accent)"
-													href={feed.siteUrl}
-													target="_blank"
-													rel="noreferrer"
-												>
-													{feed.siteUrl.replace(/^https?:\/\//, "").replace(/\/$/, "")}
-												</a>
-											) : null}
-										</div>
-									</div>
+                  <div class="mt-4">
+                    {feed.items.length ? (
+                      <div
+                        class="relative flex gap-3 pb-1"
+                        style="overflow-x: auto; overflow-y: visible;"
+                      >
+                        {feed.items.map((item) => (
+                          <div
+                            class="group relative z-0 min-w-[280px] max-w-md flex-1 rounded-xl border border-slate-100 bg-slate-50/70 p-3 pb-10 transition hover:border-(--accent) hover:bg-white hover:z-10 after:clear-both after:block after:content-['']"
+                            key={item.id}
+                          >
+                            {item.image ? (
+                              <div class="float-right ml-3 mb-2 h-24 w-28 overflow-hidden rounded-lg border border-slate-100 bg-slate-100">
+                                <img
+                                  src={item.image}
+                                  alt={item.title}
+                                  loading="lazy"
+                                  decoding="async"
+                                  class="h-full w-full object-cover transition duration-300 group-hover:scale-[1.02]"
+                                />
+                              </div>
+                            ) : null}
+                            <div class="flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+                              <span class="text-(--accent)">
+                                {formatDate(item.publishedAt)}
+                              </span>
+                            </div>
+                            <a
+                              href={item.link}
+                              target="_blank"
+                              rel="noreferrer"
+                              class="mt-1 block text-base font-semibold text-slate-900 transition hover:text-(--accent)"
+                            >
+                              {item.title}
+                            </a>
+                            {item.summary ? (
+                              <p class="mt-1 text-sm text-slate-600">
+                                {item.summary}
+                              </p>
+                            ) : null}
+                            <div class="absolute bottom-3 right-3 text-sm text-(--accent)">
+                              <a
+                                href={item.link}
+                                target="_blank"
+                                rel="noreferrer"
+                                class="inline-flex items-center gap-1 font-semibold"
+                              >
+                                {t("home.communityFeed.readMore")}
+                                <span aria-hidden="true">↗</span>
+                              </a>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <p class="rounded-xl border border-slate-100 bg-slate-50/70 px-3 py-4 text-sm text-slate-600">
+                        {t("home.communityFeed.emptyFeed")}
+                      </p>
+                    )}
+                  </div>
+                </article>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </section>
 
-								<div class="mt-4">
-									{feed.items.length ? (
-										<div class="relative flex gap-3 pb-1" style="overflow-x: auto; overflow-y: visible;">
-											{feed.items.map((item) => (
-												<div
-													class="group relative z-0 min-w-[280px] max-w-md flex-1 rounded-xl border border-slate-100 bg-slate-50/70 p-3 pb-10 transition hover:border-(--accent) hover:bg-white hover:z-10 after:clear-both after:block after:content-['']"
-													key={item.id}
-												>
-													{item.image ? (
-														<div class="float-right ml-3 mb-2 h-24 w-28 overflow-hidden rounded-lg border border-slate-100 bg-slate-100">
-															<img
-																src={item.image}
-																alt={item.title}
-																loading="lazy"
-																decoding="async"
-																class="h-full w-full object-cover transition duration-300 group-hover:scale-[1.02]"
-															/>
-														</div>
-													) : null}
-													<div class="flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-														<span class="text-(--accent)">{formatDate(item.publishedAt)}</span>
-													</div>
-													<a
-														href={item.link}
-														target="_blank"
-														rel="noreferrer"
-														class="mt-1 block text-base font-semibold text-slate-900 transition hover:text-(--accent)"
-													>
-														{item.title}
-													</a>
-													{item.summary ? (
-														<p class="mt-1 text-sm text-slate-600">
-															{item.summary}
-														</p>
-													) : null}
-													<div class="absolute bottom-3 right-3 text-sm text-(--accent)">
-														<a
-															href={item.link}
-															target="_blank"
-															rel="noreferrer"
-															class="inline-flex items-center gap-1 font-semibold"
-														>
-															{t("home.communityFeed.readMore")}
-															<span aria-hidden="true">↗</span>
-														</a>
-													</div>
-												</div>
-											))}
-										</div>
-									) : (
-										<p class="rounded-xl border border-slate-100 bg-slate-50/70 px-3 py-4 text-sm text-slate-600">
-											{t("home.communityFeed.emptyFeed")}
-										</p>
-									)}
-								</div>
-							</article>
-						))}
-					</div>
-				</div>
-			</div>
-		</section>
+    <section id="why-join" class="bg-white/95 px-6 py-16 md:px-12">
+      <div class="mx-auto max-w-5xl">
+        <p
+          class="text-sm font-semibold uppercase tracking-[0.3em] text-slate-500"
+        >
+          {t("home.whyJoin.label")}
+        </p>
+        <h2 class="mt-3 text-3xl font-semibold text-slate-900">
+          {t("home.whyJoin.title")}
+        </h2>
+        <WhyJoin items={benefits} />
+        <figure
+          class="mx-auto mt-10 w-full max-w-3xl overflow-hidden rounded-3xl bg-white/90 shadow-xl shadow-stone-900/5 ring-1 ring-white/60"
+        >
+          <img
+            src="/images/kyoto-tech-meetup-hack-day.jpg"
+            alt="Our first Community Hack Day where we built this very site!"
+            loading="lazy"
+            decoding="async"
+            class="h-full w-full max-h-[520px] object-cover"
+          />
+          <figcaption
+            class="px-5 py-4 text-center text-sm font-medium text-slate-700"
+          >
+            Our first Community Hack Day where we built this very site! (<a
+              class="text-(--accent) underline-offset-4 hover:underline"
+              href="https://github.com/kyoto-tech/kyoto-tech.github.io"
+              target="_blank"
+              rel="noreferrer"
+            >
+              repo here
+            </a>)
+          </figcaption>
+        </figure>
+      </div>
+    </section>
 
-		<section id="why-join" class="bg-white/95 px-6 py-16 md:px-12">
-			<div class="mx-auto max-w-5xl">
-				<p class="text-sm font-semibold uppercase tracking-[0.3em] text-slate-500">{t("home.whyJoin.label")}</p>
-				<h2 class="mt-3 text-3xl font-semibold text-slate-900">{t("home.whyJoin.title")}</h2>
-				<WhyJoin items={benefits} />
-				<figure class="mx-auto mt-10 w-full max-w-3xl overflow-hidden rounded-3xl bg-white/90 shadow-xl shadow-stone-900/5 ring-1 ring-white/60">
-					<img
-						src="/images/kyoto-tech-meetup-hack-day.jpg"
-						alt="Our first Community Hack Day where we built this very site!"
-						loading="lazy"
-						decoding="async"
-						class="h-full w-full max-h-[520px] object-cover"
-					/>
-					<figcaption class="px-5 py-4 text-center text-sm font-medium text-slate-700">
-						Our first Community Hack Day where we built this very site! (<a
-							class="text-(--accent) underline-offset-4 hover:underline"
-							href="https://github.com/kyoto-tech/kyoto-tech.github.io"
-							target="_blank"
-							rel="noreferrer"
-						>
-							repo here
-						</a>)
-					</figcaption>
-				</figure>
-			</div>
-		</section>
+    <section id="who-comes" class="bg-white/95 px-6 py-16 md:px-12">
+      <div class="mx-auto flex max-w-5xl flex-col gap-10 lg:flex-row">
+        <div class="flex-1">
+          <p
+            class="text-sm font-semibold uppercase tracking-[0.3em] text-slate-500"
+          >
+            {t("home.whoComes.label")}
+          </p>
+          <h2 class="mt-3 text-3xl font-semibold text-slate-900">
+            {t("home.whoComes.title")}
+          </h2>
+          <p class="mt-4 text-slate-600">{t("home.whoComes.intro")}</p>
+          <ul
+            class="mt-6 list-disc space-y-3 pl-5 text-base leading-relaxed text-slate-600"
+          >
+            <li>{t("home.whoComes.item1")}</li>
+            <li>{t("home.whoComes.item2")}</li>
+            <li>{t("home.whoComes.item3")}</li>
+            <li>{t("home.whoComes.item4")}</li>
+            <li>{t("home.whoComes.item5")}</li>
+          </ul>
+        </div>
+        <div class="flex-1 space-y-4">
+          <div
+            class="rounded-2xl bg-white/90 p-6 shadow-lg shadow-stone-900/10 ring-1 ring-white/70"
+          >
+            <h3 class="text-xl font-semibold text-slate-900">
+              {t("home.languages.title")}
+            </h3>
+            <p class="mt-3 text-base leading-relaxed text-slate-600">
+              {t("home.languages.description")}
+            </p>
+          </div>
+          <div
+            class="rounded-2xl bg-white/90 p-6 shadow-lg shadow-stone-900/10 ring-1 ring-white/70"
+          >
+            <h3 class="text-xl font-semibold text-slate-900">
+              {t("home.locations.title")}
+            </h3>
+            <p class="mt-3 text-base leading-relaxed text-slate-600">
+              {t("home.locations.description1")}
+            </p>
+            <p class="mt-2 text-base leading-relaxed text-slate-600">
+              {t("home.locations.description2")}
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
 
-		<section id="who-comes" class="bg-white/95 px-6 py-16 md:px-12">
-			<div class="mx-auto flex max-w-5xl flex-col gap-10 lg:flex-row">
-				<div class="flex-1">
-					<p class="text-sm font-semibold uppercase tracking-[0.3em] text-slate-500">{t("home.whoComes.label")}</p>
-					<h2 class="mt-3 text-3xl font-semibold text-slate-900">{t("home.whoComes.title")}</h2>
-					<p class="mt-4 text-slate-600">{t("home.whoComes.intro")}</p>
-					<ul class="mt-6 list-disc space-y-3 pl-5 text-base leading-relaxed text-slate-600">
-						<li>{t("home.whoComes.item1")}</li>
-						<li>{t("home.whoComes.item2")}</li>
-						<li>{t("home.whoComes.item3")}</li>
-						<li>{t("home.whoComes.item4")}</li>
-						<li>{t("home.whoComes.item5")}</li>
-					</ul>
-				</div>
-				<div class="flex-1 space-y-4">
-					<div class="rounded-2xl bg-white/90 p-6 shadow-lg shadow-stone-900/10 ring-1 ring-white/70">
-						<h3 class="text-xl font-semibold text-slate-900">{t("home.languages.title")}</h3>
-						<p class="mt-3 text-base leading-relaxed text-slate-600">
-							{t("home.languages.description")}
-						</p>
-					</div>
-					<div class="rounded-2xl bg-white/90 p-6 shadow-lg shadow-stone-900/10 ring-1 ring-white/70">
-						<h3 class="text-xl font-semibold text-slate-900">{t("home.locations.title")}</h3>
-						<p class="mt-3 text-base leading-relaxed text-slate-600">
-							{t("home.locations.description1")}
-						</p>
-						<p class="mt-2 text-base leading-relaxed text-slate-600">
-							{t("home.locations.description2")}
-						</p>
-					</div>
-				</div>
-			</div>
-		</section>
-	</main>
-
-		<footer class="bg-stone-950 px-6 py-12 text-slate-100 md:px-12">
-			<div class="mx-auto flex max-w-5xl flex-col gap-6 md:flex-row md:items-center md:justify-between">
-				<p class="text-sm text-slate-300">© {new Date().getFullYear()} {t("home.footer.copyright")}</p>
-				<nav aria-label={t("home.footer.socialNavLabel")}>
-					<ul class="flex flex-wrap gap-4 text-sm font-medium text-slate-200">
-						<li>
-							<a
-								class="flex items-center gap-2 transition hover:text-white"
-								href="https://github.com/kyoto-tech"
-								target="_blank"
-								rel="noreferrer"
-							>
-								<FaGithub className="text-lg" /> {t("home.footer.github")}
-							</a>
-						</li>
-						<li>
-							<a
-								class="flex items-center gap-2 transition hover:text-white"
-								href="https://discord.gg/mXFWEHDKeu"
-								target="_blank"
-								rel="noreferrer"
-							>
-								<FaDiscord className="text-lg" /> {t("home.footer.discord")}
-							</a>
-						</li>
-						<li>
-							<a
-								class="flex items-center gap-2 transition hover:text-white"
-								href={meetupUrl}
-								target="_blank"
-								rel="noreferrer"
-							>
-								<FaMeetup className="text-lg" /> {t("home.footer.meetup")}
-							</a>
-						</li>
-					</ul>
-				</nav>
-			</div>
-		</footer>
-	</Layout>
+  <Footer lang={lang} />
+</Layout>

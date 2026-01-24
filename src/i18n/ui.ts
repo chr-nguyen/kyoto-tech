@@ -108,9 +108,10 @@ export const ui = {
     "home.footer.copyright":
       "Kyoto Tech Meetup. Crafted by volunteers in Kyoto.",
     "home.footer.socialNavLabel": "Social links",
-    "home.footer.github": "GitHub",
-    "home.footer.discord": "Discord",
-    "home.footer.meetup": "Meetup",
+        "home.footer.github": "GitHub",
+        "home.footer.discord": "Discord",
+        "home.footer.meetup": "Meetup",
+        "home.footer.contact": "Contact",
 
     "meta.siteName": "Kyoto Tech Meetup",
     "meta.title":
@@ -223,9 +224,10 @@ export const ui = {
     "home.footer.copyright":
       "Kyoto Tech Meetup — 京都在住のボランティアによるコミュニティ運営。",
     "home.footer.socialNavLabel": "ソーシャルリンク",
-    "home.footer.github": "GitHub",
-    "home.footer.discord": "Discord",
-    "home.footer.meetup": "Meetup",
+        "home.footer.github": "GitHub",
+        "home.footer.discord": "Discord",
+        "home.footer.meetup": "Meetup",
+        "home.footer.contact": "お問い合わせ",
 
     "meta.siteName": "Kyoto Tech Meetup",
     "meta.title":

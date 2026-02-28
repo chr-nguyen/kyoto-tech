@@ -1,19 +1,30 @@
-name: Scheduled Rebuild
+name: Trigger Cloudflare Pages Build
 
 on:
+  push:
+    branches:
+      - main
   schedule:
     - cron: "0 */3 * * *" # every 3 hours
   workflow_dispatch:
 
+permissions:
+  contents: read
+
+concurrency:
+  group: cloudflare-pages-trigger-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  trigger-deploy:
+  trigger:
     runs-on: ubuntu-latest
     steps:
-      - name: Trigger Cloudflare Pages Deploy
+      - name: Trigger Cloudflare deploy hook
+        env:
+          CLOUDFLARE_DEPLOY_HOOK: ${{ secrets.CLOUDFLARE_DEPLOY_HOOK }}
         run: |
-          curl -X POST "${{ secrets.CLOUDFLARE_DEPLOY_HOOK }}" \
-            -H "Content-Type: application/json" \
-            -d '{"triggered_by":"scheduled-rebuild"}'
-
-      - name: Log deployment trigger
-        run: echo "Triggered Cloudflare Pages deployment at $(date)"
+          if [ -z "$CLOUDFLARE_DEPLOY_HOOK" ]; then
+            echo "Missing required secret: CLOUDFLARE_DEPLOY_HOOK" >&2
+            exit 1
+          fi
+          curl -fsS -X POST "$CLOUDFLARE_DEPLOY_HOOK"

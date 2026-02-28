@@ -8,7 +8,7 @@ import mdx from "@astrojs/mdx";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://kyoto-tech.github.io",
+  site: "https://kyototechmeetup.com",
   integrations: [react(), sitemap(), mdx()],
 
   i18n: {
@@ -17,6 +17,8 @@ export default defineConfig({
   },
 
   vite: {
-    plugins: [tailwindcss()]
+    // Cast avoids occasional CI type mismatches when Vite types are resolved from
+    // different module instances, while runtime behavior is unchanged.
+    plugins: [/** @type {any} */ (tailwindcss())]
   }
 });

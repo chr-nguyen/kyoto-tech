@@ -76,8 +76,10 @@ public/          # Files served as-is (favicon, images)
 
 ## Deployment
 
-- The site is deployed automatically to [GitHub Pages](https://kyoto-tech.github.io) via the workflow in `.github/workflows/deploy.yml`.
-- Any push to `main` triggers `npm ci`, `npm run build`, and then publishes the `dist/` directory using `actions/deploy-pages`.
+- Production deploys now target [Cloudflare Pages](https://kyototechmeetup.com/) via `.github/workflows/scheduled-build.yml`.
+- GitHub triggers Cloudflare builds via the deploy hook (`CLOUDFLARE_DEPLOY_HOOK`) on push to `main`, manual dispatch, and every 3 hours by cron.
+- Cloudflare Pages performs the build and deployment.
+- The legacy [GitHub Pages URL](https://kyoto-tech.github.io/) is maintained as a redirect only, published from `.github/redirect-site` by `.github/workflows/deploy-github-pages-redirect.yml`.
 - To test a production build locally, use `npm run build && npm run preview`.
 
 ## Interacting with the community

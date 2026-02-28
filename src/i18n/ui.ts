@@ -17,6 +17,9 @@ export const ui = {
     "home.header.cta": "Join Us",
     "home.header.discordCta": "Join our Discord",
     "home.header.githubCta": "View our GitHub",
+    "nav.about": "About Us",
+    "nav.events": "Events",
+    "nav.communityFeed": "Community Feed",
 
     "home.quickLinks.label": "Quick links",
     "home.quickLinks.title": "Connect with the community",
@@ -133,6 +136,9 @@ export const ui = {
     "home.header.cta": "参加する",
     "home.header.discordCta": "Discordでチャットする",
     "home.header.githubCta": "GitHubでコードを見る",
+    "nav.about": "私たちについて",
+    "nav.events": "イベント",
+    "nav.communityFeed": "コミュニティフィード",
 
     "home.quickLinks.label": "クイックリンク",
     "home.quickLinks.title": "コミュニティとつながる",

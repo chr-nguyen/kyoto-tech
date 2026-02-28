@@ -14,7 +14,7 @@ const ITEM_PAGE_TIMEOUT_MS = Number(
   process.env.COMPOSITE_FEED_ITEM_PAGE_TIMEOUT_MS || 8000,
 );
 const USER_AGENT =
-  "Kyoto Tech Meetup feed aggregator (+https://kyoto-tech.github.io)";
+  "Kyoto Tech Meetup feed aggregator (+https://kyototechmeetup.com)";
 const MEMBER_FEEDS_PATH = path.resolve("src/data/member-feeds.json");
 const YOUTUBE_HOSTNAMES = new Set([
   "youtube.com",

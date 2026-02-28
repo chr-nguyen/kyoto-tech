@@ -7,10 +7,11 @@ import { ClientRouter } from "astro:transitions";
 const activeLang = (Astro.currentLocale ?? "en") as "en" | "ja";
 const t = useTranslations(activeLang);
 
-const SITE_URL = "https://kyoto-tech.github.io";
+const SITE_URL = "https://kyototechmeetup.com";
 const canonicalUrl = `${SITE_URL}${getRelativeLocaleUrl(activeLang, "/")}`;
 const hrefEn = `${SITE_URL}/`;
 const hrefJa = `${SITE_URL}/ja/`;
+const ogImageUrl = `${SITE_URL}/images/og/kyoto-tech-meetup.png`;
 const ogLocale = activeLang === "ja" ? "ja_JP" : "en_US";
 const ogLocaleAlternate = activeLang === "ja" ? "en_US" : "ja_JP";
 const gtmId = "GTM-5SB4S7NJ";
@@ -164,7 +165,7 @@ const ldData = {
 		<meta property="og:url" content={canonicalUrl} />
 		<meta property="og:locale" content={ogLocale} />
 		<meta property="og:locale:alternate" content={ogLocaleAlternate} />
-		<meta property="og:image" content="https://kyoto-tech.github.io/images/og/kyoto-tech-meetup.png" />
+		<meta property="og:image" content={ogImageUrl} />
 		<meta property="og:image:width" content="1200" />
 		<meta property="og:image:height" content="630" />
 		<meta property="og:image:alt" content={t("meta.imageAlt")} />
@@ -174,7 +175,7 @@ const ldData = {
 				name="twitter:description"
 				content={t("meta.description")}
 		/>
-		<meta name="twitter:image" content="https://kyoto-tech.github.io/images/og/kyoto-tech-meetup.png" />
+		<meta name="twitter:image" content={ogImageUrl} />
 		<meta name="twitter:image:alt" content={t("meta.imageAlt")} />
 		<link rel="alternate" hreflang="en" href={hrefEn} />
 		<link rel="alternate" hreflang="ja" href={hrefJa} />

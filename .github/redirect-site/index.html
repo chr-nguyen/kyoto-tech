@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Moved | Kyoto Tech Meetup</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <script>
+      (function () {
+        var from = new URL(window.location.href);
+        var to = new URL(
+          from.pathname + from.search + from.hash,
+          "https://kyototechmeetup.com",
+        );
+        window.location.replace(to.toString());
+      })();
+    </script>
+    <meta http-equiv="refresh" content="0; url=https://kyototechmeetup.com/" />
+  </head>
+  <body>
+    <p>
+      Kyoto Tech Meetup moved to
+      <a id="redirect-link" href="https://kyototechmeetup.com/"
+        >https://kyototechmeetup.com/</a
+      >.
+    </p>
+    <script>
+      (function () {
+        var from = new URL(window.location.href);
+        var to = new URL(
+          from.pathname + from.search + from.hash,
+          "https://kyototechmeetup.com",
+        );
+        var link = document.getElementById("redirect-link");
+        if (link) link.href = to.toString();
+      })();
+    </script>
+  </body>
+</html>

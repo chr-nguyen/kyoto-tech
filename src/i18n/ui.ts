@@ -14,9 +14,12 @@ export const ui = {
       "Connect, learn, and build together in Japan's cultural heart",
     "home.header.subtitle":
       "Gatherings for developers, designers, researchers, and founders exploring technology in Kyoto.",
-    "home.header.cta": "Join the next meetup",
+    "home.header.cta": "Join Us",
     "home.header.discordCta": "Join our Discord",
     "home.header.githubCta": "View our GitHub",
+    "nav.about": "About Us",
+    "nav.events": "Events",
+    "nav.communityFeed": "Community Feed",
 
     "home.quickLinks.label": "Quick links",
     "home.quickLinks.title": "Connect with the community",
@@ -130,9 +133,12 @@ export const ui = {
       "日本の文化都市・京都でつながり、学び、ものづくりをしよう",
     "home.header.subtitle":
       "京都でテクノロジーを探求するデベロッパー、デザイナー、研究者、創業者のための集まりです。",
-    "home.header.cta": "イベントに参加する",
+    "home.header.cta": "参加する",
     "home.header.discordCta": "Discordでチャットする",
     "home.header.githubCta": "GitHubでコードを見る",
+    "nav.about": "私たちについて",
+    "nav.events": "イベント",
+    "nav.communityFeed": "コミュニティフィード",
 
     "home.quickLinks.label": "クイックリンク",
     "home.quickLinks.title": "コミュニティとつながる",

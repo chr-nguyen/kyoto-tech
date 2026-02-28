@@ -8,6 +8,9 @@ export const defaultLang = "en";
 export const ui = {
   en: {
     "a11y.skipToMain": "Skip to main content",
+    "a11y.switchLang": "Switch language to {label}",
+    "a11y.mapTitle": "Map of {name}",
+    "a11y.mapLabel": "Embedded map showing the location of {name}",
 
     "home.header.tagline": "Kyoto Tech Meetup",
     "home.header.title":
@@ -110,6 +113,19 @@ export const ui = {
     "home.locations.description3":
       "Most of our events take place at the cafés shown on the map below.",
 
+    "home.calendar.label": "Upcoming Meetups",
+    "home.calendar.title": "Kyoto Tech Meetup Calendar",
+
+    "home.eventCard.empty": "Check back soon for events!",
+    "home.eventCard.emptyLink": "Join our meetup group here to get updates.",
+    "home.eventCard.liveNow": "Live Now",
+    "home.eventCard.venueTba": "Venue TBA",
+    "home.eventCard.going": "going",
+
+    "home.hackDay.imageAlt": "Our first Community Hack Day where we built this very site!",
+    "home.hackDay.caption": "Our first Community Hack Day where we built this very site!",
+    "home.hackDay.repoLink": "repo here",
+
     "home.footer.copyright":
       "Kyoto Tech Meetup. Crafted by volunteers in Kyoto.",
     "home.footer.socialNavLabel": "Social links",
@@ -127,6 +143,9 @@ export const ui = {
   },
   ja: {
     "a11y.skipToMain": "メインコンテンツへスキップ",
+    "a11y.switchLang": "{label}に言語を切り替える",
+    "a11y.mapTitle": "{name}の地図",
+    "a11y.mapLabel": "{name}の場所を示す埋め込み地図",
 
     "home.header.tagline": "Kyoto Tech Meetup",
     "home.header.title":
@@ -221,7 +240,7 @@ export const ui = {
 
     "home.languages.title": "対応言語",
     "home.languages.description":
-      "英語で気軽に参加できます。英語と日本語が自然に混ざるミートアップなので、そのままの自分でどうぞ。みんなで場をつくります。",
+      "英語でも日本語でも気軽に参加できます。英語と日本語が自然に混ざるミートアップなので、そのままの自分でどうぞ。みんなで場をつくります。",
 
     "home.locations.title": "開催場所",
     "home.locations.description1":
@@ -230,6 +249,19 @@ export const ui = {
       "具体的な場所と時間は、各イベントの案内メールやリマインダーでお知らせします。",
     "home.locations.description3":
       "ほとんどのイベントは、以下の地図に示されているカフェで開催されています。",
+
+    "home.calendar.label": "今後のミートアップ",
+    "home.calendar.title": "Kyoto Tech Meetup カレンダー",
+
+    "home.eventCard.empty": "イベント情報は近日公開予定です。",
+    "home.eventCard.emptyLink": "Meetupグループに参加して最新情報を受け取りましょう。",
+    "home.eventCard.liveNow": "開催中",
+    "home.eventCard.venueTba": "会場未定",
+    "home.eventCard.going": "人が参加予定",
+
+    "home.hackDay.imageAlt": "初めてのCommunity Hack Day。このサイトもここで作りました！",
+    "home.hackDay.caption": "初めてのCommunity Hack Day。このサイトもここで作りました！",
+    "home.hackDay.repoLink": "リポジトリはこちら",
 
     "home.footer.copyright":
       "Kyoto Tech Meetup — 京都在住のボランティアによるコミュニティ運営。",
